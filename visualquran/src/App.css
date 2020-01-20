@@ -1,0 +1,44 @@
+h1 {
+    text-align: center;
+    text-indent: 3em;
+    text-decoration: solid;
+    color: white;
+    font-size: large;
+    letter-spacing: -1px;
+    font-size: 2em;
+    font-weight:800;
+    font-family: Geometria-Heavy,sans-serif;
+    background-color:rgba(0, 0, 0, 0.301);
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+body {
+    background-color: #16191d33;
+    color: white;
+    text-align: center;
+    
+  }
+  .container {
+    height: 100%;
+    width: 95%;
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 601px) {
+    div.container{
+        font-size: 1em;
+  
+    }
+  }
+  
+  /* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+  @media screen and (max-width: 600px) {
+    div.container {
+        font-size: 0.5em;
+
+    }
+  }
