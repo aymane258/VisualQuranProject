@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
-import Video from './components/Video-Background/VideoBackground'
+import Video from './components/VideoBackground/VideoBackground'
 import QuranVerse from './components/QuranVerse/QuranVerse'
 import Gallery from './components/Gallery/Gallery'
-
 class App extends Component {
 
   state = {
@@ -18,6 +17,7 @@ onChange = () => {
       <Gallery change={this.onChange}/>
       <QuranVerse></QuranVerse>
       <Video videoURL={this.state.videoURL}></Video>
+
       </React.Fragment>);
   }
 }

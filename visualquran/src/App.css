@@ -1,31 +1,22 @@
-h1 {
+h2 {
     text-align: center;
-    text-indent: 3em;
-    text-decoration: solid;
     color: white;
-    font-size: large;
-    letter-spacing: -1px;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight:800;
-    font-family: Geometria-Heavy,sans-serif;
-    background-color:rgba(0, 0, 0, 0.301);
-    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    font-family:sans-serif;   
+    text-shadow: -1px 0 rgba(0, 0, 0, 0.377), 0 1px black, 1px 0 black, 0 -1px black;
 }
 
-body {
-    background-color: #16191d33;
-    color: white;
-    text-align: center;
-    
-  }
-  .container {
-    height: 100%;
-    width: 95%;
-    display: flex;
-    position: fixed;
-    align-items: center;
-    justify-content: center;
-  }
+.container {
+  background-color: #060c2165;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+  
+}
+
 
   /* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
 @media screen and (min-width: 601px) {
