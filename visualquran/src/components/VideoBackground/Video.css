@@ -1,6 +1,4 @@
 .videoInsert {
-    /* Set rules to fill background */
-    min-height: 100%;
     min-width: 1024px;
       
     /* Set up proportionate scaling */
@@ -12,6 +10,7 @@
     position: fixed;
     top: 0;
     left: 0;
+
 }
 
   
