@@ -4,9 +4,13 @@ import TextField from '@material-ui/core/TextField';
 export default function FormPropsTextFields() {
 
   return (
+    
         <TextField
-          id="standard-number"
-          label="Number"
+         id="outlined-size-small"
+         defaultValue="1"
+          variant="outlined"
+          size="small"
+          label="ayah"
           type="number"
           InputLabelProps={{
             shrink: true,

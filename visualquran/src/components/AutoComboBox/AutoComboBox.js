@@ -11,7 +11,7 @@ export default function ComboBox() {
         getOptionLabel={option => option.recitator}
         style={{ width: 200 }}
         renderInput={params => (
-          <TextField {...params} label="Surah" variant="outlined" fullWidth />
+          <TextField {...params} label="Surah" variant="filled" fullWidth />
         )}
       />
     );
