@@ -3,21 +3,24 @@ import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 
-export default function ComboBox() {
+export default function ComboBox(props) {
     return (
       <Autocomplete
-        id="combo-box-demo"
-        options={recitators}
-        getOptionLabel={option => option.recitator}
+        options={props.list}
+        getOptionLabel={option => option.reciter_name_eng || option.name_simple || option.language_name}
+        renderOption={option => (
+          <React.Fragment>
+            {option.reciter_name_eng} {option.style}
+            {option.chapter_number} {option.name_simple} 
+            {option.language_name? option.language_name.concat(" by ", option.author_name) : null}
+          </React.Fragment>
+        )}
         style={{ width: 200 }}
         renderInput={params => (
-          <TextField {...params} label="Surah" variant="filled" fullWidth />
+          <TextField key={props.label} {...params} label={props.label} variant="filled" fullWidth />
         )}
       />
     );
   }
-// Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
-const recitators = [
-  {recitator:"Surah Kahf"},
-  {recitator:"by Idris Abkar"}
-];
+
+

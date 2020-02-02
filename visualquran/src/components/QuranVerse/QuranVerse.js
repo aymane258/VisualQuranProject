@@ -7,8 +7,8 @@ export default class QuranVerse extends Component {
         //const url = "http://staging.quran.com:3000/api/v3/chapters/1/verses?recitation=1&translations=21&language=en&text_type=words"
         return (
             <div className="container">
-               <h2>If anyone desires a reward in this life, We shall give it to him; and if anyone desires a reward in the Hereafter, We shall give it to him. And swiftly shall We reward those that (serve us with) gratitude</h2> 
-               <h2>صراط الذين انعمت عليهم غير المغضوب عليهم ولا الضالين</h2>
+            <h2>O you who have believed, when you contract a debt for a specified term, write it down. And let a scribe write </h2>
+             <p className="arabic"> بِسْمِ اللَّهِ الرَّحْمَـٰنِ الرَّحِيمِ</p>
             </div>
         )
     }

@@ -8,15 +8,16 @@ import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
-import ModalGallery from '../Gallery/ModalGallery'
-
-import Paper from '@material-ui/core/Paper';
+import ModalGallery from '../../containers/ModalGallery'
 import Grid from '@material-ui/core/Grid';
 
 //autoCompleteBox
 import AutoComboBox from '../AutoComboBox/AutoComboBox'
-import CheckBox from '../CheckBox/CheckBox'
+import CheckBox from '../UI/CheckBox/CheckBox'
 import TextField from '../TextField/TextField'
+
+
+
 
 const useStyles = makeStyles(theme => ({
 
@@ -27,7 +28,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  row:{
+  row: {
     display: 'flex',
     alignItems: 'center',
   },
@@ -35,7 +36,7 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   controls: {
-    justifyContent:'center',
+    justifyContent: 'center',
     padding: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
@@ -43,88 +44,89 @@ const useStyles = makeStyles(theme => ({
     color: 'white',
     height: 48,
     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-   
+
   },
   playIcon: {
     height: 38,
-    color:'white',
+    color: 'white',
     width: 38,
   },
   checkBox: {
     display: 'flex',
     alignItems: 'center',
   },
-  justifyContentCenter:{
-    justifyContent:'center',
+  justifyContentCenter: {
+    justifyContent: 'center',
   },
   root: {
     flexGrow: 1,
   },
 }));
 
-export default function MediaControlCard() {
+export default function MediaControlCard(props) {
+
   const classes = useStyles();
   const theme = useTheme();
 
   return (
     <Card className={classes.card}>
       <div className={classes.details}>
-          <div className={classes.root}>
+        <div className={classes.root}>
           <CardContent >
-            
-      <Grid container spacing={3}>
-        <Grid item xs>
-        <Typography gutterBottom variant="subtitle1">
+
+            <Grid container spacing={3}>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
                   Surah
                 </Typography>
-         <AutoComboBox></AutoComboBox>
-        </Grid>
-        <Grid item xs>
-        <Typography gutterBottom variant="subtitle1">
-               Recitators
+                <AutoComboBox  label="Surah" list={props.chapters}></AutoComboBox>
+              </Grid>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  Recitators
                 </Typography>
-        <AutoComboBox></AutoComboBox>
-        </Grid>
-        <Grid item xs>
-        <Typography gutterBottom variant="subtitle1">
-                 Translations
+                <AutoComboBox  label="Recitator" list={props.recitations}></AutoComboBox>
+              </Grid>
+              <Grid item xs>
+                <Typography gutterBottom variant="subtitle1">
+                  Translations
                 </Typography>
-        <AutoComboBox></AutoComboBox>
-        </Grid>
-      </Grid>
-      <Grid container  spacing={3}>
-        <Grid item xs={4}>
-        <TextField></TextField>
-        </Grid>
-        <Grid item xs={4}>
-        <TextField></TextField>
-        </Grid>
-        <Grid item xs={4}>
-        <CheckBox></CheckBox>
-        </Grid>
-      </Grid>
-  
-    
-        </CardContent>
-        <div className={classes.controls}>
-          <IconButton aria-label="previous">
-            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-          </IconButton>
-          <IconButton aria-label="play/pause">
-            <PlayArrowIcon className={classes.playIcon} />
-          </IconButton>
-          <IconButton aria-label="next">
-            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-          </IconButton>
+                <AutoComboBox  label="Translation" list={props.translations}></AutoComboBox>
+              </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+              <Grid item xs={4}>
+                <TextField></TextField>
+              </Grid>
+              <Grid item xs={4}>
+                <TextField></TextField>
+              </Grid>
+              <Grid item xs={4}>
+                <CheckBox></CheckBox>
+              </Grid>
+            </Grid>
+
+
+          </CardContent>
+          <div className={classes.controls}>
+            <IconButton aria-label="previous">
+              {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+            </IconButton>
+            <IconButton aria-label="play/pause">
+              <PlayArrowIcon className={classes.playIcon} />
+            </IconButton>
+            <IconButton aria-label="next">
+              {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+            </IconButton>
+          </div>
         </div>
-      </div>
       </div>
       <CardMedia
         className={classes.cover}
-        image="https://media.giphy.com/media/S5WgOgmQAu8PAfg7aG/giphy.gif"
+        image="https://media.giphy.com/media/MePqfFezra7P19JGts/200w_d.gif"
         title="Surah Kahf"
-      ><ModalGallery></ModalGallery></CardMedia>
-         
+      ><ModalGallery changeBackground={props.changeBackground}></ModalGallery></CardMedia>
+
     </Card>
   );
 }

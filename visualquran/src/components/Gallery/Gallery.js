@@ -7,6 +7,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import IconButton from '@material-ui/core/IconButton';
 import InfoIcon from '@material-ui/icons/Info';
 import tileData from './tileData';
+import Popper from '@material-ui/core/Popper';
+
+import './gallery.css'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -16,6 +19,12 @@ const useStyles = makeStyles(theme => ({
     overflow: 'hidden',
     backgroundColor: theme.palette.background.paper,
   },
+  paper: {
+    border: '1px solid',
+    padding: theme.spacing(1),
+    backgroundColor: theme.palette.background.paper,
+  },
+
   gridList: {
     width: 500,
     height: 450,
@@ -25,26 +34,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function TitlebarGridList() {
+export default function TitlebarGridList(props) {
   const classes = useStyles();
-
+const disclaimer="► We don't own any of these wallpapers. The credits go to the respective owners. ► Fair Use:Copyright Disclaimer Under Section 107 of the Copyright Act 1976 ► If you are the author and would like it removed contact us"
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
         <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-          <ListSubheader component="div">Gallery Backgrounds</ListSubheader>
+  <ListSubheader component="div">{disclaimer}</ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
-          <GridListTile key={tile.img}>
-            <img src={tile.img} alt={tile.title} />
+          <GridListTile classname="gridItem" onClick={()=> props.changeBackground(tile.videoURL)}key={tile.img}>
+            <img  classname="gridItem"  src={tile.img} alt={tile.title} />
             <GridListTileBar
               title={tile.title}
               subtitle={<span>by: {tile.author}</span>}
-              actionIcon={
-                <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
             />
           </GridListTile>
         ))}
