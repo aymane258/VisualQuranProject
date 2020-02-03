@@ -5,7 +5,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 
 export default function ComboBox(props) {
     return (
-      <Autocomplete
+      <Autocomplete 
         options={props.list}
         getOptionLabel={option => option.reciter_name_eng || option.name_simple || option.language_name}
         renderOption={option => (
@@ -17,7 +17,7 @@ export default function ComboBox(props) {
         )}
         style={{ width: 200 }}
         renderInput={params => (
-          <TextField key={props.label} {...params} label={props.label} variant="filled" fullWidth />
+          <TextField  key={props.label} onChange={()=>props.changed({...params})}{...params} label={props.label} variant="filled" fullWidth />
         )}
       />
     );

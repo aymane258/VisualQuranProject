@@ -11,6 +11,7 @@ h2 {
     font-size: 2em;
     font-weight:800;  
     text-shadow: -1px 0 rgba(0, 0, 0, 0.377), 0 1px black, 1px 0 black, 0 -1px black;
+
 }
 .arabic {
   text-align: center;
@@ -20,6 +21,7 @@ h2 {
 }
 
 .container {
+ border-radius: 110px;
   background-color: #060c2165;
   position: fixed;
   top: 40%;

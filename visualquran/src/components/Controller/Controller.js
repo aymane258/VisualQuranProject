@@ -8,13 +8,15 @@ import Typography from '@material-ui/core/Typography';
 import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
-import ModalGallery from '../../containers/ModalGallery'
 import Grid from '@material-ui/core/Grid';
+import Modal from '../UI/Modal/Modal'
+import Gallery from '../Gallery/Gallery'
 
 //autoCompleteBox
 import AutoComboBox from '../AutoComboBox/AutoComboBox'
 import CheckBox from '../UI/CheckBox/CheckBox'
-import TextField from '../TextField/TextField'
+import TextField from '../UI/TextField/TextField'
+import Select from '../Select/Select'
 
 
 
@@ -79,19 +81,20 @@ export default function MediaControlCard(props) {
                 <Typography gutterBottom variant="subtitle1">
                   Surah
                 </Typography>
-                <AutoComboBox  label="Surah" list={props.chapters}></AutoComboBox>
+                <Select list={props.chapters} changed={props.settings} type="SURAH"></Select>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Recitators
                 </Typography>
-                <AutoComboBox  label="Recitator" list={props.recitations}></AutoComboBox>
+                <Select list={props.recitations} changed={props.settings} type="RECITATION"></Select>
+
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Translations
                 </Typography>
-                <AutoComboBox  label="Translation" list={props.translations}></AutoComboBox>
+                <Select list={props.translations} changed={props.settings} type="TRANSLATION"></Select>
               </Grid>
             </Grid>
             <Grid container spacing={3}>
@@ -105,6 +108,7 @@ export default function MediaControlCard(props) {
                 <CheckBox></CheckBox>
               </Grid>
             </Grid>
+            
 
 
           </CardContent>
@@ -123,9 +127,9 @@ export default function MediaControlCard(props) {
       </div>
       <CardMedia
         className={classes.cover}
-        image="https://media.giphy.com/media/MePqfFezra7P19JGts/200w_d.gif"
+        image={props.imgURL}
         title="Surah Kahf"
-      ><ModalGallery changeBackground={props.changeBackground}></ModalGallery></CardMedia>
+      ><Modal><Gallery changeBackground={props.changeBackground}/></Modal></CardMedia>
 
     </Card>
   );

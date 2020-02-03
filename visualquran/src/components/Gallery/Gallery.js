@@ -4,10 +4,7 @@ import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
 import tileData from './tileData';
-import Popper from '@material-ui/core/Popper';
 
 import './gallery.css'
 
@@ -36,7 +33,10 @@ const useStyles = makeStyles(theme => ({
 
 export default function TitlebarGridList(props) {
   const classes = useStyles();
-const disclaimer="► We don't own any of these wallpapers. The credits go to the respective owners. ► Fair Use:Copyright Disclaimer Under Section 107 of the Copyright Act 1976 ► If you are the author and would like it removed contact us"
+const disclaimer= (<div><p>► We don't own any of these wallpapers. The credits go to the respective owners.</p>
+<p>► Fair Use:Copyright Disclaimer Under Section 107 of the Copyright Act 1976</p>
+<p>► If you are the author and would like it removed contact us</p>
+</div>)
   return (
     <div className={classes.root}>
       <GridList cellHeight={180} className={classes.gridList}>
@@ -44,8 +44,8 @@ const disclaimer="► We don't own any of these wallpapers. The credits go to th
   <ListSubheader component="div">{disclaimer}</ListSubheader>
         </GridListTile>
         {tileData.map(tile => (
-          <GridListTile classname="gridItem" onClick={()=> props.changeBackground(tile.videoURL)}key={tile.img}>
-            <img  classname="gridItem"  src={tile.img} alt={tile.title} />
+          <GridListTile  onClick={()=> props.changeBackground(tile.videoURL,tile.img)}key={tile.img}>
+            <img    src={tile.img} alt={tile.title} />
             <GridListTileBar
               title={tile.title}
               subtitle={<span>by: {tile.author}</span>}
