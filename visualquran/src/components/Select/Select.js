@@ -5,6 +5,13 @@ import Select from '@material-ui/core/Select';
 
 export default function NativeSelects(props) {
 
+  const [value, setValue] = React.useState('');
+
+  const handleChange = event => {
+    
+    setValue(event.target.value);
+    console.log(event.target.value)
+  };
 
     const data = props.list.map((item,id) => {
     if(item.reciter_name_eng){
@@ -19,7 +26,7 @@ export default function NativeSelects(props) {
      }
      return null
 
-})
+}).sort()
 
   return (
     <div>
@@ -27,8 +34,8 @@ export default function NativeSelects(props) {
   <InputLabel htmlFor="filled-age-native-simple">{props.type}</InputLabel>
         <Select
           native
- 
-          onChange={(event)=>props.changed(event.target.value,props.type)}
+ value={value}
+          onChange={(event)=>{props.changed(event.target.value,props.type); handleChange(event)}}
         >
             <option value={null}> </option>
      }

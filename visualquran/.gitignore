@@ -22,3 +22,7 @@ yarn-error.log*
 
 # Local Netlify folder
 .netlify
+
+
+# mp3 Video Files
+/public/verses

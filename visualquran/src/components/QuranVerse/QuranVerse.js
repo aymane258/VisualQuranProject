@@ -1,14 +1,19 @@
 import React, { Component } from 'react'
 import './QuranVerse'
-//import axios from 'axios'
+
+import ReactHtmlParser from 'react-html-parser';
 export default class QuranVerse extends Component {
+
+    toggleAppear = () => {
+
+    }
     
     render() {
-        //const url = "http://staging.quran.com:3000/api/v3/chapters/1/verses?recitation=1&translations=21&language=en&text_type=words"
+      
         return (
-            <div className="container">
-    <h2>{this.props.translationVerse}</h2>
-        <h2>{this.props.arabicVerse}</h2>
+            <div key={this.props.arabicVerse}className="container">
+      <h2 className="fade-in" >{ReactHtmlParser(this.props.translationVerse)}</h2>
+        <h2 className="arabic fade-in">{ReactHtmlParser(this.props.arabicVerse)}</h2>
             </div>
         )
     }

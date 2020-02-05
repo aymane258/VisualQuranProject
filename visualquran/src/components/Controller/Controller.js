@@ -12,11 +12,11 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '../UI/Modal/Modal'
 import Gallery from '../Gallery/Gallery'
 
-//autoCompleteBox
-import AutoComboBox from '../AutoComboBox/AutoComboBox'
+
 import CheckBox from '../UI/CheckBox/CheckBox'
 import TextField from '../UI/TextField/TextField'
 import Select from '../Select/Select'
+import * as SelectTypes from './SelectTypes'
 
 
 
@@ -79,22 +79,22 @@ export default function MediaControlCard(props) {
             <Grid container spacing={3}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                  Surah
+                    Chapter
                 </Typography>
-                <Select list={props.chapters} changed={props.settings} type="SURAH"></Select>
+                <Select list={props.selectData.chapters} changed={props.settings} type={SelectTypes.CHAPTER}></Select>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Recitators
                 </Typography>
-                <Select list={props.recitations} changed={props.settings} type="RECITATION"></Select>
+                <Select list={props.selectData.recitations} changed={props.settings} type={SelectTypes.RECITATION}></Select>
 
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Translations
                 </Typography>
-                <Select list={props.translations} changed={props.settings} type="TRANSLATION"></Select>
+                <Select list={props.selectData.translations} changed={props.settings} type={SelectTypes.TRANSLATION}></Select>
               </Grid>
             </Grid>
             <Grid container spacing={3}>
@@ -105,7 +105,7 @@ export default function MediaControlCard(props) {
                 <TextField></TextField>
               </Grid>
               <Grid item xs={4}>
-                <CheckBox></CheckBox>
+                <CheckBox onRepeat={props.onRepeat} ></CheckBox>
               </Grid>
             </Grid>
             
