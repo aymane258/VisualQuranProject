@@ -37,7 +37,21 @@ videoURL:"./assets/Aurora.mp4",
 title:"Aurora River",
 author:"SakuraChen",
 license:"https://dribbble.com/SakuraChen"
-   }
+   },
+   {
+    img:"https://i.imgur.com/355twkG.jpg",
+    videoURL:"./assets/KoiFish.mp4",
+    title:"Koi Fish",
+    author:"Tehosc",
+    license:"https://oscarsdrawings.tumblr.com/post/163416536450/leaf-wisp-x-download"
+       },
+       {
+        img:"https://i.imgur.com/9qAXi6f.jpg",
+        videoURL:"./assets/ForestRiver.mp4",
+        title:"Forest River",
+        author:"byrotek",
+        license:"https://oscarsdrawings.tumblr.com/post/163416536450/leaf-wisp-x-download"
+           }
  ];
  
  export default tileData;

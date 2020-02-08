@@ -17,7 +17,7 @@ class VisualQuran extends Component {
     },
     //GALLERY AND BACKGROUND DATA
     gallery: {
-      videoURL: './assets/tree.mp4',
+      videoURL: './assets/GrassField.mp4',
       imgURL: 'https://i.gyazo.com/4e15ef40738c296574b4500f418df626.png',
     },
 
