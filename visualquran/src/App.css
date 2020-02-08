@@ -5,6 +5,8 @@
   src: local('maddina'), url(./fonts/maddina.ttf) format('truetype');
 }
 
+
+
 /* make keyframes that tell the start state and the end state of our object */
 @-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
 @-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
@@ -17,19 +19,24 @@ body {
 
 
 h2 {
-    text-align: center;
-    color: white;
-    font-size:45px;
+  text-align: center;
+  color: white;
+  font-size:45px;
 
-    text-shadow: -1px 0 rgba(0, 0, 0, 0.377), 0 1px black, 1px 0 black, 0 -1px black;
-    
+  text-shadow: -1px 0 rgba(0, 0, 0, 0.377), 0 1px black, 1px 0 black, 0 -1px black;
+  
 }
 
-.arabic{
+h1{
+  text-align: center;
+  color: white;
+  font-size: 4.5em; 
+  font-weight: normal; 
+  display: block;
   font-family: 'maddina';
 }
 .container {
-  
+  padding:10px;
   border-style: solid;
   border-width: 2px;
   border-color: white;
@@ -43,6 +50,7 @@ left:2%;
   transform: translate(-30%,10%,0,10%);
   
 }
+
 
 .fade-in {
   opacity:0;  /* make things invisible upon start */

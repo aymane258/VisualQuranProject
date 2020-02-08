@@ -30,6 +30,13 @@
   title: 'GrassField',
    author: 'Velorexe',
    license:'steam'
+   },
+   {
+img:"https://i.gyazo.com/4548045a04660e107b16faf3b5a11984.png",
+videoURL:"./assets/Aurora.mp4",
+title:"Aurora River",
+author:"SakuraChen",
+license:"https://dribbble.com/SakuraChen"
    }
  ];
  

@@ -1,8 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import PhotoIcon from '@material-ui/icons/Photo';
-
+import SettingsIcon from '@material-ui/icons/Settings';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +23,7 @@ const  Button =(props) =>{
     <div onClick={props.clicked}  className={classes.root}>
      
       <Fab color="secondary" aria-label="edit">
-      <PhotoIcon />
+      <SettingsIcon />
       </Fab>
     </div>
   );

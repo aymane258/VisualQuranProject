@@ -8,8 +8,9 @@ class Video extends Component {
                 <video key={this.props.videoURL}  className="videoInsert"  loop autoPlay>
                     <source src={this.props.videoURL} type="video/mp4" />
                     Your browser does not support the video tag.
+                   
                 </video>
-          
+        
             )
         }
     };
