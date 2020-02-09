@@ -12,12 +12,12 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '../UI/Modal/Modal'
 import Gallery from '../Gallery/Gallery'
 
-
+import Dialog from '../UI/Dialog/Dialog'
 import CheckBox from '../UI/CheckBox/CheckBox'
 import TextField from '../UI/TextField/TextField'
 import Select from '../Select/Select'
 import * as SelectTypes from './SelectTypes'
-
+import Recitations from '../Gallery/Recitations'
 
 
 
@@ -87,8 +87,7 @@ export default function MediaControlCard(props) {
                 <Typography gutterBottom variant="subtitle1">
                   Recitators
                 </Typography>
-                <Select list={props.selectData.recitations} changed={props.settings} type={SelectTypes.RECITATION}></Select>
-
+<Dialog  title="Reciters" name={props.settings.currentRecitationId ? props.selectData.recitations[props.settings.currentRecitationId].reciter_name_eng : "Select A Reciter" }> <Recitations list={props.selectData.recitations} changed={props.settings} /></Dialog>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
@@ -113,13 +112,13 @@ export default function MediaControlCard(props) {
 
           </CardContent>
           <div className={classes.controls}>
-            <IconButton aria-label="previous">
+            <IconButton  onClick={props.prevChapter} aria-label="previous">
               {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
             </IconButton>
             <IconButton aria-label="play/pause">
               <PlayArrowIcon className={classes.playIcon} />
             </IconButton>
-            <IconButton aria-label="next">
+            <IconButton onClick={props.nextChapter} aria-label="next">
               {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
             </IconButton>
           </div>

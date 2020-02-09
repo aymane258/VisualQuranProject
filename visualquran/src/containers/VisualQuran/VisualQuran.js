@@ -17,7 +17,7 @@ class VisualQuran extends Component {
     },
     //GALLERY AND BACKGROUND DATA
     gallery: {
-      videoURL: './assets/GrassField.mp4',
+      videoURL: './assets/videos/GrassField.mp4',
       imgURL: 'https://i.gyazo.com/4e15ef40738c296574b4500f418df626.png',
     },
 
@@ -30,14 +30,18 @@ class VisualQuran extends Component {
       currentChapterId: null,
       currentRecitationId: null,
       currentTranslationId: null,
+      currentRecitorName:null
     },
     repeat: true,
     versesCurrentPage: 0,
     currentPage: 1,
     currentVerseCount: 0,
     apiData: null,
-    meta: null
+    meta: null,
+    
   }
+
+
 
   onRepeatHandle = (value) => {
     this.setState({ repeat: value })
@@ -50,7 +54,11 @@ class VisualQuran extends Component {
     axios.get('/options/recitations')
       .then(response => {
         const initialRecitations = response.data.recitations;
-        this.setState({ selectData: { ...this.state.selectData, recitations: initialRecitations } })
+        const updatedRecitations = initialRecitations.map(recitator => {
+      
+       return {...recitator,imgURL:`assets/images/reciters/${recitator.id}.jpg` }
+        })
+        this.setState({ selectData: { ...this.state.selectData, recitations: updatedRecitations } })
       })
     axios.get('/options/translations')
       .then(response => {
@@ -93,11 +101,26 @@ class VisualQuran extends Component {
     }
   }
 
-
+nextChapterHandler= () => {
+  const currentChapter=this.state.settings.currentChapterId 
+  if(currentChapter<=113)
+  this.setState({settings:{
+    currentChapterId:currentChapter+1
+  }})
+}
+previousChapterHandler=()=> {
+  const currentChapter=this.state.settings.currentChapterId 
+  if(currentChapter>=2)
+  this.setState({settings:{
+    currentChapterId:currentChapter-1
+  }})
+}
   nextVerseHandler = (event) => {
     const currPage = this.state.currentPage;
     const currVerse = this.state.currentVerseCount;
-    if (this.state.apiData && event.keyCode === 39) {
+
+    //NEXT VERSE
+    if ( this.state.apiData && event.keyCode === 39) {
       if (this.state.currentVerseCount !== this.state.apiData.verses.length - 1) {
         this.setState({ currentVerseCount: currVerse + 1 })
       } else if (this.state.currentVerseCount === this.state.apiData.verses.length - 1 && !this.state.apiData.meta.next_page && this.state.repeat) {
@@ -105,6 +128,20 @@ class VisualQuran extends Component {
         this.setState({ currentVerseCount: 0 })
       } else if (this.state.currentVerseCount === this.state.apiData.verses.length - 1 && this.state.apiData.meta.next_page) {
         this.setState({ currentPage: currPage + 1 })
+
+        console.log(this.state.currentPage + " current page")
+
+      }
+    }
+    //PREVIOUS VERSE
+    if (this.state.apiData && event.keyCode === 37) {
+      if (this.state.currentVerseCount !== 0 ) {
+        this.setState({ currentVerseCount: currVerse - 1 })
+      } else if (this.state.currentVerseCount === 0  && !this.state.apiData.meta.prev_page) {
+        console.log(!this.state.apiData.meta.next_page)
+        this.setState({ currentVerseCount: 0 })
+      } else if (this.state.currentVerseCount === 0 && this.state.apiData.meta.prev_page) {
+        this.setState({ currentPage: currPage -1 })
 
         console.log(this.state.currentPage + " current page")
 
@@ -154,7 +191,7 @@ class VisualQuran extends Component {
 
     return (<React.Fragment>
 
-      <Modal><Controller onRepeat={this.onRepeatHandle} settings={this.onChangeSettings} imgURL={this.state.gallery.imgURL} changeBackground={this.onChangeBackground} selectData={this.state.selectData}  ></Controller></Modal>
+      <Modal><Controller nextChapter={this.nextChapterHandler} prevChapter={this.previousChapterHandler} onRepeat={this.onRepeatHandle} settings={this.onChangeSettings} imgURL={this.state.gallery.imgURL} changeBackground={this.onChangeBackground} selectData={this.state.selectData}  ></Controller></Modal>
       {quranVerse}
 
       {audio}

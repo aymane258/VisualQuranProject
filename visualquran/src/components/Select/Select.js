@@ -13,8 +13,10 @@ export default function NativeSelects(props) {
     console.log(event.target.value)
   };
 
+  
   const data = props.list.map((item, id) => {
     if (item.reciter_name_eng) {
+
       return <option key={item.reciter_name_eng + id} value={item.id}>{item.reciter_name_eng} {item.style}</option>
     }
     //if its not null 
