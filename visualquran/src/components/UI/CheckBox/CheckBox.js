@@ -5,7 +5,7 @@ import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 
 
 export default function CheckboxLabels(props) {
-  const [state, setState] = React.useState(true);
+  const [state, setState] = React.useState(props.currentCheck);
   const handleChange = event => {
     setState(event.target.checked);
     props.onRepeat(event.target.checked)

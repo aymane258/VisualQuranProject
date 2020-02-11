@@ -7,7 +7,10 @@ import Controller from '../../components/Controller/Controller'
 import * as SelectTypes from '../../components/Controller/SelectTypes'
 
 class VisualQuran extends Component {
-
+  constructor(props) {
+    super(props);
+    this.currentAudio = React.createRef();
+  }
   state = {
     //DATA TO FILL THE SELECT COMPONENT
     selectData: {
@@ -29,8 +32,7 @@ class VisualQuran extends Component {
       //CURRENT ID OF CHATPER RECIT OR TRANSL
       currentChapterId: null,
       currentRecitationId: null,
-      currentTranslationId: null,
-      currentRecitorName:null
+      currentTranslationId: null
     },
     repeat: true,
     versesCurrentPage: 0,
@@ -38,7 +40,10 @@ class VisualQuran extends Component {
     currentVerseCount: 0,
     apiData: null,
     meta: null,
-    
+    changedRecitation:false,
+    changedTranslation:false,
+    changedChapter:false,
+    play:true
   }
 
 
@@ -47,9 +52,14 @@ class VisualQuran extends Component {
     this.setState({ repeat: value })
   }
 
-
   componentDidMount() {
     window.addEventListener("keydown", this.nextVerseHandler);
+    if(this.state.apiData){
+    this.intervalID = setInterval(
+      () => this.nextVerseHandler(),
+    this.state.apiData.verses[this.state.currentVerseCount].audio.duration *1000
+    )};
+
 
     axios.get('/options/recitations')
       .then(response => {
@@ -76,23 +86,28 @@ class VisualQuran extends Component {
       })
 
   }
+  
+
+
   componentWillUnmount() {
     window.removeEventListener("keydown", this.nextVerseHandler, true);
+   clearInterval(this.intervalID);
   }
   componentDidUpdate() {
     //Only Call Api if user selected a chapter,recitation,translation
     if (this.state.settings.currentChapterId && this.state.settings.currentRecitationId && this.state.settings.currentTranslationId) {
-      //Only Call Api if either its the first call or ,(apidata is not null and the chapter is not changed and translation is not changed or if page is)
+    
       if (!this.state.apiData ||
-        (this.state.apiData && (this.state.apiData.verses[0].chapter_id !== Number(this.state.settings.currentChapterId)
-          || Number(this.state.settings.currentTranslationId) !== this.state.apiData.verses[0].translations[0].resource_id
-          || this.state.currentPage !== this.state.apiData.meta.current_page))) {
+        ((this.state.apiData && this.state.changedChapter) || this.state.changedRecitation|| this.state.changedTranslation 
+          || this.state.currentPage !== this.state.apiData.meta.current_page)) {
 
         axios.get(`/chapters/${this.state.settings.currentChapterId}/verses?recitation=${this.state.settings.currentRecitationId}&translations=${this.state.settings.currentTranslationId}&language=en&text_type=words&page=${this.state.currentPage}`)
           .then(response => {
-            this.setState({ apiData: response.data, currentVerseCount: 0 })
+            this.setState({ apiData: response.data, currentVerseCount: 0 ,changedRecitation:false,changedTranslation:false,changedChapter:false})
             console.log(response.data.verses[0].audio.url)
+
             console.log(`/chapters/${this.state.settings.currentChapterId}/verses?recitation=${this.state.settings.currentRecitationId}&translations=${this.state.settings.currentTranslationId}&language=en&text_type=words&page=${this.state.currentPage}`)
+            this.currentAudio.current.pause()
           }).catch(error => {
             console.log(error)
           })
@@ -101,20 +116,9 @@ class VisualQuran extends Component {
     }
   }
 
-nextChapterHandler= () => {
-  const currentChapter=this.state.settings.currentChapterId 
-  if(currentChapter<=113)
-  this.setState({settings:{
-    currentChapterId:currentChapter+1
-  }})
-}
-previousChapterHandler=()=> {
-  const currentChapter=this.state.settings.currentChapterId 
-  if(currentChapter>=2)
-  this.setState({settings:{
-    currentChapterId:currentChapter-1
-  }})
-}
+
+
+
   nextVerseHandler = (event) => {
     const currPage = this.state.currentPage;
     const currVerse = this.state.currentVerseCount;
@@ -133,7 +137,7 @@ previousChapterHandler=()=> {
 
       }
     }
-    //PREVIOUS VERSE
+  
     if (this.state.apiData && event.keyCode === 37) {
       if (this.state.currentVerseCount !== 0 ) {
         this.setState({ currentVerseCount: currVerse - 1 })
@@ -149,7 +153,16 @@ previousChapterHandler=()=> {
     }
   }
 
-
+onChangePlay= () => {
+  const currPlay = this.state.play
+  this.setState({play:!currPlay})
+  if(!this.state.play) {
+    this.currentAudio.current.pause()
+  }else {
+    this.currentAudio.current.play()
+  }
+  console.log(currPlay)
+}
 
 
 
@@ -161,15 +174,16 @@ previousChapterHandler=()=> {
   onChangeSettings = (currentSetting, type) => {
     switch (type) {
       case SelectTypes.CHAPTER:
-        this.setState({ settings: { ...this.state.settings, currentChapterId: currentSetting } })
+        this.setState({ settings: { ...this.state.settings, currentChapterId: currentSetting },changedChapter:true })
         break;
       case SelectTypes.RECITATION:
-        this.setState({ settings: { ...this.state.settings, currentRecitationId: currentSetting } })
+        this.setState({ settings: { ...this.state.settings, currentRecitationId: currentSetting },changedRecitation:true })
         break;
       case SelectTypes.TRANSLATION: {
-        this.setState({ settings: { ...this.state.settings, currentTranslationId: currentSetting } })
+        this.setState({ settings: { ...this.state.settings, currentTranslationId: currentSetting },changedTranslation:true })
         break;
       }
+      // no default
     }
     //this.setState({settings:currentSettings})
   }
@@ -183,7 +197,7 @@ previousChapterHandler=()=> {
     }
 
     if (this.state.apiData) {
-      audio = (<audio className="displayNone" controls autoPlay key={this.state.apiData.verses[this.state.currentVerseCount].audio.url}>
+      audio = (<audio className="displayNone" ref={this.currentAudio} controls autoPlay key={this.state.apiData.verses[this.state.currentVerseCount].audio.url}>
         <source src={this.state.apiData.verses[this.state.currentVerseCount].audio.url} />
       </audio>)
       quranVerse = <QuranVerse  currentVerse={this.state.apiData.verses[this.state.currentVerseCount].verse_key} arabicVerse={this.state.apiData.verses[this.state.currentVerseCount].text_madani} translationVerse={this.state.apiData.verses[this.state.currentVerseCount].translations[0].text} > </QuranVerse>
@@ -191,7 +205,7 @@ previousChapterHandler=()=> {
 
     return (<React.Fragment>
 
-      <Modal><Controller nextChapter={this.nextChapterHandler} prevChapter={this.previousChapterHandler} onRepeat={this.onRepeatHandle} settings={this.onChangeSettings} imgURL={this.state.gallery.imgURL} changeBackground={this.onChangeBackground} selectData={this.state.selectData}  ></Controller></Modal>
+      <Modal><Controller currPlay={this.state.play} onPlay={this.onChangePlay}currentCheck={this.state.repeat}currentSettings={this.state.settings} nextChapter={this.nextChapterHandler} prevChapter={this.previousChapterHandler} onRepeat={this.onRepeatHandle} settings={this.onChangeSettings} imgURL={this.state.gallery.imgURL} changeBackground={this.onChangeBackground} selectData={this.state.selectData}  ></Controller></Modal>
       {quranVerse}
 
       {audio}

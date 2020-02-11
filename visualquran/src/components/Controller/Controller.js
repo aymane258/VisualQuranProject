@@ -5,9 +5,8 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
+import PauseIcon from '@material-ui/icons/Pause';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import SkipNextIcon from '@material-ui/icons/SkipNext';
 import Grid from '@material-ui/core/Grid';
 import Modal from '../UI/Modal/Modal'
 import Gallery from '../Gallery/Gallery'
@@ -68,7 +67,6 @@ const useStyles = makeStyles(theme => ({
 export default function MediaControlCard(props) {
 
   const classes = useStyles();
-  const theme = useTheme();
 
   return (
     <Card className={classes.card}>
@@ -81,19 +79,19 @@ export default function MediaControlCard(props) {
                 <Typography gutterBottom variant="subtitle1">
                     Chapter
                 </Typography>
-                <Select list={props.selectData.chapters} changed={props.settings} type={SelectTypes.CHAPTER}></Select>
+                <Select defaultValue={props.currentSettings.currentChapterId} list={props.selectData.chapters} changed={props.settings} type={SelectTypes.CHAPTER}></Select>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Recitators
                 </Typography>
-<Dialog  title="Reciters" name={props.settings.currentRecitationId ? props.selectData.recitations[props.settings.currentRecitationId].reciter_name_eng : "Select A Reciter" }> <Recitations list={props.selectData.recitations} changed={props.settings} /></Dialog>
+          <Dialog  title="Reciters" name={"Select A Reciter" }> <Recitations list={props.selectData.recitations} changed={props.settings} /></Dialog>
               </Grid>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
                   Translations
                 </Typography>
-                <Select list={props.selectData.translations} changed={props.settings} type={SelectTypes.TRANSLATION}></Select>
+                <Select defaultValue={props.currentSettings.currentTranslationId} list={props.selectData.translations} changed={props.settings} type={SelectTypes.TRANSLATION}></Select>
               </Grid>
             </Grid>
             <Grid container spacing={3}>
@@ -104,7 +102,7 @@ export default function MediaControlCard(props) {
                 <TextField></TextField>
               </Grid>
               <Grid item xs={4}>
-                <CheckBox onRepeat={props.onRepeat} ></CheckBox>
+                <CheckBox currentCheck={props.currentCheck}onRepeat={props.onRepeat} ></CheckBox>
               </Grid>
             </Grid>
             
@@ -112,15 +110,11 @@ export default function MediaControlCard(props) {
 
           </CardContent>
           <div className={classes.controls}>
-            <IconButton  onClick={props.prevChapter} aria-label="previous">
-              {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+
+            <IconButton onClick={props.onPlay}  aria-label="play/pause">
+            {props.currPlay?<PlayArrowIcon className={classes.playIcon} />:<PauseIcon className={classes.playIcon}/>}
             </IconButton>
-            <IconButton aria-label="play/pause">
-              <PlayArrowIcon className={classes.playIcon} />
-            </IconButton>
-            <IconButton onClick={props.nextChapter} aria-label="next">
-              {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-            </IconButton>
+
           </div>
         </div>
       </div>

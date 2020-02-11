@@ -5,7 +5,7 @@ import Select from '@material-ui/core/Select';
 
 export default function NativeSelects(props) {
 
-  const [value, setValue] = React.useState('');
+  const [value, setValue] = React.useState(props.defaultValue || '')
 
   const handleChange = event => {
 
