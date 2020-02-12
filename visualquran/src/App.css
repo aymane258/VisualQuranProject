@@ -23,7 +23,15 @@ h2 {
   color: white;
   font-size:45px;
   text-shadow: -1px 0 rgba(0, 0, 0, 0.377), 0 1px black, 1px 0 black, 0 -1px black;
-  
+
+}
+.translation {
+  top: 30%;
+  right:2%;
+  left:2%;
+    /* bring your own prefixes */
+    transform: translate(-30%,50%,0,10%);
+position: absolute
 }
 
 h1{
@@ -34,6 +42,7 @@ h1{
   display: block;
   font-family: 'maddina';
 }
+
 .container {
   padding:10px;
   border-style: solid;
@@ -42,7 +51,7 @@ h1{
  border-radius: 110px;
   background-color: #060c2165;
   position: fixed;
-  top: 40%;
+  top: 55%;
 right:2%;
 left:2%;
   /* bring your own prefixes */
