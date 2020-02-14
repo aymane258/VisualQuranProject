@@ -16,8 +16,8 @@ export default class QuranVerse extends Component {
         <h1 className="arabic fade-in">{this.props.ayahSymbol} {ReactHtmlParser(this.props.arabicVerse)}</h1>
   
             </div>
-            <div className="translation">
-            <h2 className="fade-in" >[{this.props.currentVerse}] {ReactHtmlParser(this.props.translationVerse)}</h2>
+            <div className="translation fade-in">
+            <h2 className=" fade-in">[{this.props.currentVerse}] {ReactHtmlParser(this.props.translationVerse)}</h2>
             </div></React.Fragment>
             
         )
