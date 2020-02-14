@@ -7,7 +7,8 @@ import SettingsIcon from '@material-ui/icons/Settings';
 const useStyles = makeStyles(theme => ({
   root: {
     '& > *': {
-      margin: theme.spacing(7)
+      margin: theme.spacing(7),
+      zIndex:1000
       
     },
   },

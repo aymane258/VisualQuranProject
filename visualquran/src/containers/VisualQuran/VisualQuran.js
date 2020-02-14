@@ -120,17 +120,19 @@ class VisualQuran extends Component {
 
 
   nextVerseHandler = (event) => {
+
+    const apiData = this.state.apiData;
     const currPage = this.state.currentPage;
     const currVerse = this.state.currentVerseCount;
 
     //NEXT VERSE
-    if ( this.state.apiData && event.keyCode === 39) {
-      if (this.state.currentVerseCount !== this.state.apiData.verses.length - 1) {
+    if ( apiData && event.keyCode === 39) {
+      if (this.state.currentVerseCount !== apiData.verses.length - 1) {
         this.setState({ currentVerseCount: currVerse + 1 })
-      } else if (this.state.currentVerseCount === this.state.apiData.verses.length - 1 && !this.state.apiData.meta.next_page && this.state.repeat) {
-        console.log(!this.state.apiData.meta.next_page)
+      } else if (this.state.currentVerseCount === apiData.verses.length - 1 && !apiData.meta.next_page && this.state.repeat) {
+        console.log(!apiData.meta.next_page)
         this.setState({ currentVerseCount: 0 })
-      } else if (this.state.currentVerseCount === this.state.apiData.verses.length - 1 && this.state.apiData.meta.next_page) {
+      } else if (this.state.currentVerseCount === apiData.verses.length - 1 && apiData.meta.next_page) {
         this.setState({ currentPage: currPage + 1 })
 
         console.log(this.state.currentPage + " current page")
@@ -138,13 +140,13 @@ class VisualQuran extends Component {
       }
     }
   
-    if (this.state.apiData && event.keyCode === 37) {
+    if (apiData && event.keyCode === 37) {
       if (this.state.currentVerseCount !== 0 ) {
         this.setState({ currentVerseCount: currVerse - 1 })
-      } else if (this.state.currentVerseCount === 0  && !this.state.apiData.meta.prev_page) {
-        console.log(!this.state.apiData.meta.next_page)
+      } else if (this.state.currentVerseCount === 0  && !apiData.meta.prev_page) {
+        console.log(!apiData.meta.next_page)
         this.setState({ currentVerseCount: 0 })
-      } else if (this.state.currentVerseCount === 0 && this.state.apiData.meta.prev_page) {
+      } else if (this.state.currentVerseCount === 0 && apiData.meta.prev_page) {
         this.setState({ currentPage: currPage -1 })
 
         console.log(this.state.currentPage + " current page")
