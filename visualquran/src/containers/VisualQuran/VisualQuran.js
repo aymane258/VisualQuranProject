@@ -94,19 +94,26 @@ class VisualQuran extends Component {
    clearInterval(this.intervalID);
   }
   componentDidUpdate() {
+           
+
+
     //Only Call Api if user selected a chapter,recitation,translation
     if (this.state.settings.currentChapterId && this.state.settings.currentRecitationId && this.state.settings.currentTranslationId) {
     
       if (!this.state.apiData ||
-        ((this.state.apiData && this.state.changedChapter) || this.state.changedRecitation|| this.state.changedTranslation 
-          || this.state.currentPage !== this.state.apiData.meta.current_page)) {
+        (this.state.apiData && (this.state.changedChapter || this.state.changedRecitation|| this.state.changedTranslation 
+          || this.state.currentPage !== this.state.apiData.meta.current_page))) {
 
-        axios.get(`/chapters/${this.state.settings.currentChapterId}/verses?recitation=${this.state.settings.currentRecitationId}&translations=${this.state.settings.currentTranslationId}&language=en&text_type=words&page=${this.state.currentPage}`)
+            if(this.state.resetPage && this.state.changedChapter){
+              this.setState({currentPage:1,resetPage:false})
+            }
+
+        axios.get(`/chapters/${this.state.settings.currentChapterId}/verses?recitation=${this.state.settings.currentRecitationId}&translations=${this.state.settings.currentTranslationId}&language=en&text_type=words&page=${this.state.changedChapter?1:this.state.currentPage}`)
           .then(response => {
-            this.setState({ apiData: response.data, currentVerseCount: 0 ,changedRecitation:false,changedTranslation:false,changedChapter:false})
+            this.setState({ apiData: response.data, currentVerseCount: 0 ,changedRecitation:false,changedTranslation:false,changedChapter:false,resetPage:true})
             console.log(response.data.verses[0].audio.url)
 
-            console.log(`/chapters/${this.state.settings.currentChapterId}/verses?recitation=${this.state.settings.currentRecitationId}&translations=${this.state.settings.currentTranslationId}&language=en&text_type=words&page=${this.state.currentPage}`)
+           
             this.currentAudio.current.pause()
           }).catch(error => {
             console.log(error)
@@ -131,7 +138,7 @@ class VisualQuran extends Component {
         this.setState({ currentVerseCount: currVerse + 1 })
       } else if (this.state.currentVerseCount === apiData.verses.length - 1 && !apiData.meta.next_page && this.state.repeat) {
         console.log(!apiData.meta.next_page)
-        this.setState({ currentVerseCount: 0 })
+        this.setState({ currentVerseCount: 0,currentPage:1 })
       } else if (this.state.currentVerseCount === apiData.verses.length - 1 && apiData.meta.next_page) {
         this.setState({ currentPage: currPage + 1 })
 
@@ -157,12 +164,24 @@ class VisualQuran extends Component {
 
 onChangePlay= () => {
   const currPlay = this.state.play
-  this.setState({play:!currPlay})
-  if(!this.state.play) {
-    this.currentAudio.current.pause()
-  }else {
-    this.currentAudio.current.play()
-  }
+
+    if (this.state.settings.currentChapterId && this.state.settings.currentRecitationId && this.state.settings.currentTranslationId) {
+    this.setState({play:!currPlay})
+    if(!this.state.play) {
+      this.currentAudio.current.pause()
+    }else {
+      this.currentAudio.current.play()
+    }
+    } else {
+      alert("Please Choose a chapter,recitation and translation before you proceed to play")
+    }
+   
+
+
+
+ 
+
+
   console.log(currPlay)
 }
 
