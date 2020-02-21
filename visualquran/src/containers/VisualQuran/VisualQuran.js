@@ -43,6 +43,7 @@ class VisualQuran extends Component {
     changedRecitation:false,
     changedTranslation:false,
     changedChapter:false,
+    resetPage:false,
     play:true
   }
 
@@ -69,6 +70,8 @@ class VisualQuran extends Component {
        return {...recitator,imgURL:`assets/images/reciters/${recitator.id}.jpg` }
         })
         this.setState({ selectData: { ...this.state.selectData, recitations: updatedRecitations } })
+      }).catch(error=>{
+        console.log(error)
       })
     axios.get('/options/translations')
       .then(response => {
@@ -78,11 +81,15 @@ class VisualQuran extends Component {
           return 0
         });
         this.setState({ selectData: { ...this.state.selectData, translations: initialTranslations } })
+      }).catch(error=>{
+        console.log(error)
       })
     axios.get('/chapters')
       .then(response => {
         const initialChapters = response.data.chapters;
         this.setState({ selectData: { ...this.state.selectData, chapters: initialChapters } })
+      }).catch(error=>{
+        console.log(error)
       })
 
   }

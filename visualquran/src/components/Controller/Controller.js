@@ -34,10 +34,11 @@ const useStyles = makeStyles(theme => ({
     width: 200,
   },
   controls: {
-    justifyContent: 'center',
-    padding: theme.spacing(2),
     display: 'flex',
     alignItems: 'center',
+    paddingLeft: theme.spacing(1),
+    paddingBottom: theme.spacing(1),
+    justifyContent: 'center',
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     color: 'white',
     height: 48,
@@ -55,9 +56,6 @@ const useStyles = makeStyles(theme => ({
   },
   justifyContentCenter: {
     justifyContent: 'center',
-  },
-  root: {
-
   }
 }));
 
@@ -69,24 +67,22 @@ export default function MediaControlCard(props) {
     <Card className={classes.card}>
       <div className={classes.details}>
         <div className={classes.root}>
-          <CardContent  >
+          <CardContent >
 
             <Grid container spacing={3}>
-              <Grid item sm>
+              <Grid item >
                 <Typography gutterBottom variant="subtitle1">
-                    Chapter
-                  
+                    Chapter        
                 </Typography>
-             
                 <Select defaultValue={props.currentSettings.currentChapterId} list={props.selectData.chapters} changed={props.settings} type={SelectTypes.CHAPTER}></Select>
               </Grid>
-              <Grid item sm>
+              <Grid item >
                 <Typography gutterBottom variant="subtitle1">
                   Recitators
                 </Typography>
           <Dialog  title="Reciters" name={"Select A Reciter" }> <Recitations list={props.selectData.recitations} changed={props.settings} /></Dialog>
               </Grid>
-              <Grid item sm>
+              <Grid item >
                 <Typography gutterBottom variant="subtitle1">
       
                   Translations
@@ -95,12 +91,13 @@ export default function MediaControlCard(props) {
               </Grid>
             </Grid>
             <Grid container spacing={3}>
-            <Grid item sm={4}>
-               
-              </Grid>       <Grid item sm={4}>
+            <Grid item xs={4}>
+              
+              </Grid>
+               <Grid item xs={4}>
                 <CheckBox currentCheck={props.currentCheck}onRepeat={props.onRepeat} ></CheckBox>
               </Grid>     
-              <Grid item sm={4}>
+              <Grid item xs={4}>
               
               </Grid>
             </Grid>
