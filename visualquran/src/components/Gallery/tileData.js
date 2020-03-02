@@ -85,7 +85,7 @@ const tileData = [
       videoURL: "./assets/videos/Fort.mp4",
       title: "Fort",
       author: "Gabriel Nascimento",
-      license: " https://www.artstation.com/artwork/GGNXB"
+      license: "https://media.discordapp.net/attachments/234000402528468992/683722838104211456/unknown.png?width=728&height=447"
    }
    , {
       img: "https://i.imgur.com/pMClfAa.jpg",

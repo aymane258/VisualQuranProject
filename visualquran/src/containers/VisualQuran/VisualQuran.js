@@ -226,7 +226,7 @@ onChangePlay= () => {
 
     if (this.state.apiData) {
       audio = (<audio className="displayNone" ref={this.currentAudio} controls autoPlay key={this.state.apiData.verses[this.state.currentVerseCount].audio.url}>
-        <source src={this.state.apiData.verses[this.state.currentVerseCount].audio.url} />
+        <source src={"https://download.quranicaudio.com/"+this.state.apiData.verses[this.state.currentVerseCount].audio.url} />
       </audio>)
       quranVerse = <QuranVerse  currentVerse={this.state.apiData.verses[this.state.currentVerseCount].verse_key} arabicVerse={this.state.apiData.verses[this.state.currentVerseCount].text_madani} translationVerse={this.state.apiData.verses[this.state.currentVerseCount].translations[0].text} > </QuranVerse>
     }
