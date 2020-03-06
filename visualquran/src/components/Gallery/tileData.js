@@ -94,6 +94,20 @@ const tileData = [
       author: "Waffle Ranger",
       license: ""
    }
+   , {
+      img: "https://i.imgur.com/uElvcLf.png",
+      videoURL: "./assets/videos/Clouds.mp4",
+      title: "Clouds",
+      author: "Soured Apple",
+      license: ""
+   }
+   , {
+      img: "https://i.imgur.com/E68qGgF.jpg",
+      videoURL: "./assets/videos/Space.mp4",
+      title: "Space Earth",
+      author: "Pod 042",
+      license: ""
+   }
 ];
 
 export default tileData;
