@@ -16,9 +16,12 @@ export default class QuranVerse extends Component {
                 <h1>{this.props.ayahSymbol} {ReactHtmlParser(this.props.arabicVerse)}</h1>
                 </div>
             </div>
+
             <div key={this.props.currentVerse} className="translation fade-in zoomIn">
-            <h2 >˹{this.props.currentVerse}˺ {ReactHtmlParser(this.props.translationVerse)}</h2>
+            <h2 >{this.props.currentVerse} {ReactHtmlParser(this.props.translationVerse)}</h2>
             </div>
+
+   
         </React.Fragment>
 
         )
